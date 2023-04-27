@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>video</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      background: #000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .parent-video {
+      width: 100%;
+      /* object-fit: cover; */
+      min-height: 100vh;
+      /* background: #000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center; */
+    }
+
+    #mainVideo {
+      width: 100%;
+      /* object-fit: cover; */
+      height: 98vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="parent-video">
+    <video controls controlsList="nodownload" id="abc"
+      src="" ></video>
+      <!-- <video  autoplay controls controlsList="nodownload"
+       src="" type="video/mp4" id="abc"> 
+      
+      </video> -->
+  </div>
+  <script>
+      window.onload = (event) => {
+        let filename = localStorage.getItem("src");
+document.getElementById("abc").src = filename;
+
+  
+
+      // let filename = localStorage.getItem("src")
+      // // console.log(filename,"filename")
+      // document.getElementById('mainVideo').src = filename;
+
+
+      // url change
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", filename);
+      xhr.responseType = "arraybuffer";
+      xhr.onload = (e) => {
+        let blob = new Blob([xhr.response]);
+        let url = URL.createObjectURL(blob);
+        abc.src = url;
+      }
+      xhr.send();
+      // to remove the right click
+      document.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+      });
+      localStorage.clear();  
+    };  
+  </script>
+</body>
+
+</html>
